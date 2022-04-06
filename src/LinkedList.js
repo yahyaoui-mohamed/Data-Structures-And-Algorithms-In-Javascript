@@ -4,11 +4,11 @@ function Node(val, next) {
 }
 
 function LinkedList() {
-  this.head = null;
+  let head = null;
   this.size = 0;
 
   this.print = function () {
-    let curr = this.head;
+    let curr = head;
     let str = "";
     while (curr) {
       str += curr.val + " -> ";
@@ -20,11 +20,11 @@ function LinkedList() {
 
   this.append = function (val) {
     let node = new Node(val);
-    if (!this.head) {
-      this.head = node;
+    if (!head) {
+      head = node;
     }
     else {
-      let curr = this.head;
+      let curr = head;
       while (curr.next) {
         curr = curr.next;
       }
@@ -35,19 +35,26 @@ function LinkedList() {
 
   this.prepend = function (val) {
     let node = new Node(val);
-    node.next = this.head;
-    this.head = node;
+    node.next = head;
+    head = node;
     this.size++;
   }
 
-  this.delete = function (val) {
-    if (!this.head) return;
-    if (this.size === 1 && this.head.val === val) {
-      this.head = null;
+  this.deleteFirst = function () {
+    if (!head) return;
+    let current = head.next;
+    head.next = null;
+    head = current;
+  }
+
+  this.deleteValue = function (val) {
+    if (!head) return;
+    if (this.size === 1 && head.val === val) {
+      head = null;
       this.size--;
       return;
     }
-    let curr = this.head, prev;
+    let curr = head, prev;
     while (curr.next) {
       if (curr.val === val) {
         prev.next = curr.next;
@@ -63,10 +70,10 @@ function LinkedList() {
   }
 
   this.deleteAt = function (index) {
-    if (!this.head) return;
+    if (!head) return;
     if (index === 0) {
-      let current = this.head;
-      this.head = this.head.next;
+      let current = head;
+      head = head.next;
       current = null;
       this.size--;
     }
@@ -74,7 +81,7 @@ function LinkedList() {
       throw new Error("Index out of bound.");
     }
     else {
-      let current = this.head, prev;
+      let current = head, prev;
       while (current) {
         if (index === 0) {
           prev.next = current.next;
@@ -94,7 +101,7 @@ function LinkedList() {
       this.size++;
       return;
     }
-    let current = this.head, prev;
+    let current = head, prev;
     while (current) {
       prev = current;
       current = current.next;
@@ -110,15 +117,53 @@ function LinkedList() {
   }
 
   this.reverse = function () {
-    if (!this.head || this.size === 1) return;
-    let current = this.head.next, prev = this.head;
+    if (!head || this.size === 1) return;
+    let current = head, prev = null;
     while (current) {
       let next = current.next;
       current.next = prev;
       prev = current;
       current = next;
     }
-    this.head.next = null;
-    this.head = prev;
+    head = prev;
+  }
+
+  this.indexOf = function (value) {
+    let current = head;
+    let i = 0;
+    while (current) {
+      if (current.val === value) {
+        return i;
+      }
+      i++;
+      current = current.next;
+    }
+    return -1;
+  }
+
+  this.contains = function (value) {
+    let current = head;
+    while (current) {
+      if (current.val === value) {
+        return true;
+      }
+      current = current.next;
+    }
+    return false;
+  }
+
+  this.deleteLast = function () {
+    if (!head) return;
+    if (!head.next) {
+      head = null;
+      return;
+    }
+    let current = head, prev = null;
+    while (current.next) {
+      prev = current;
+      current = current.next;
+    }
+    prev.next = null;
+    current = null;
   }
 }
