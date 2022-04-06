@@ -1,28 +1,124 @@
-function Node(value, next){
-  this.value = value ? value : 0;
+function Node(val, next) {
+  this.val = val ? val : 0;
   this.next = next ? next : null;
 }
 
-function LinkedList(){
+function LinkedList() {
   this.head = null;
-  this.add = function(val){
+  this.size = 0;
+
+  this.print = function () {
+    let curr = this.head;
+    let str = "";
+    while (curr) {
+      str += curr.val + " -> ";
+      curr = curr.next;
+    }
+    str += "NULL";
+    console.log(str);
+  }
+
+  this.append = function (val) {
     let node = new Node(val);
-    if(this.head === null){
+    if (!this.head) {
       this.head = node;
     }
-    else{
+    else {
       let curr = this.head;
-      while(curr.next !== null){
+      while (curr.next) {
         curr = curr.next;
       }
       curr.next = node;
     }
+    this.size++;
   }
-  this.print = function(){
-    let curr = this.head;
-    while(curr !== null){
-        console.log(curr.value);
-        curr = curr.next;
+
+  this.prepend = function (val) {
+    let node = new Node(val);
+    node.next = this.head;
+    this.head = node;
+    this.size++;
+  }
+
+  this.delete = function (val) {
+    if (!this.head) return;
+    if (this.size === 1 && this.head.val === val) {
+      this.head = null;
+      this.size--;
+      return;
     }
+    let curr = this.head, prev;
+    while (curr.next) {
+      if (curr.val === val) {
+        prev.next = curr.next;
+        this.size--;
+        return;
+      }
+      prev = curr;
+      curr = curr.next;
+    }
+
+
+
+  }
+
+  this.deleteAt = function (index) {
+    if (!this.head) return;
+    if (index === 0) {
+      let current = this.head;
+      this.head = this.head.next;
+      current = null;
+      this.size--;
+    }
+    else if (index > this.size - 1) {
+      throw new Error("Index out of bound.");
+    }
+    else {
+      let current = this.head, prev;
+      while (current) {
+        if (index === 0) {
+          prev.next = current.next;
+          current = null;
+          return;
+        }
+        prev = current;
+        current = current.next;
+        index--;
+      }
+    }
+  }
+
+  this.insertAt = function (index, val) {
+    if (index === 0) {
+      this.prepend(val);
+      this.size++;
+      return;
+    }
+    let current = this.head, prev;
+    while (current) {
+      prev = current;
+      current = current.next;
+      index--;
+      if (index === 0) {
+        let node = new Node(val);
+        prev.next = node;
+        node.next = current;
+        this.size++;
+        return;
+      }
+    }
+  }
+
+  this.reverse = function () {
+    if (!this.head || this.size === 1) return;
+    let current = this.head.next, prev = this.head;
+    while (current) {
+      let next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    this.head.next = null;
+    this.head = prev;
   }
 }
