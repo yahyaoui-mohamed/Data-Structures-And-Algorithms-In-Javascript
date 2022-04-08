@@ -91,7 +91,14 @@ function LinkedList() {
       }
     }
   }
-
+  this.getLast = function () {
+    if (!this.head) return null;
+    let curr = this.head;
+    while (curr.next) {
+      curr = curr.next;
+    }
+    return curr.val;
+  }
   this.insertAt = function (index, val) {
     if (index === 0) {
       this.prepend(val);
@@ -129,8 +136,8 @@ function LinkedList() {
     let current = this.head;
     let i = 0;
     while (current) {
-      if (current.val === value) {
-        return i;
+      if (i === value) {
+        return current.val;
       }
       i++;
       current = current.next;
@@ -164,3 +171,5 @@ function LinkedList() {
     current = null;
   }
 }
+
+export default LinkedList;
