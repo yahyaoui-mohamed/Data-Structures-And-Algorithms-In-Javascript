@@ -6,7 +6,7 @@ function Node(val, next) {
 function LinkedList() {
   this.head = null;
   this.size = 0;
-
+  
   this.print = function () {
     let curr = this.head;
     let str = "";
