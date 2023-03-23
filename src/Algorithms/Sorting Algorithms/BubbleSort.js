@@ -1,4 +1,4 @@
-function bubbleSort(arr) {
+function BubbleSort(arr) {
   for (let i = 0; i < arr.length - 1; ++i) {
     for (let j = i + 1; j < arr.length; ++j) {
       if (arr[i] > arr[j]) {
@@ -11,6 +11,4 @@ function bubbleSort(arr) {
   return arr;
 }
 
-console.log(bubbleSort([]));
-console.log(bubbleSort([]));
-console.log(bubbleSort([]));
+export default BubbleSort;

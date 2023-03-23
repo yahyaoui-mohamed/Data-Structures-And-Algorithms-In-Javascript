@@ -1,4 +1,4 @@
-function selectionSort(arr) {
+function SelectionSort(arr) {
   for (let i = 0; i < arr.length; ++i) {
     let minIndex = i;
     for (let j = i + 1; j < arr.length; ++j) {
@@ -13,6 +13,4 @@ function selectionSort(arr) {
   return arr;
 }
 
-console.log(selectionSort([]));
-console.log(selectionSort([]));
-console.log(selectionSort([]));
+export default SelectionSort;
