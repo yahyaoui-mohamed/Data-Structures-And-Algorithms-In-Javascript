@@ -1,5 +1,5 @@
-import MergeSort from "./Algorithms/Sorting Algorithms/MergeSort.js";
+import HeapSort from "./Algorithms/Sorting Algorithms/HeapSort.js";
 
-let arr = [2, 5, 7, 4, 1, 6, 9, 8, 3];
+let arr = [2, 4, 7, 5, 1];
 
-console.log(MergeSort(arr, 0, arr.length - 1));
+console.log(HeapSort(arr, arr.length));
